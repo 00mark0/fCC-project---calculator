@@ -1,12 +1,22 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBackspace } from "@fortawesome/free-solid-svg-icons";
+import { faSun, faMoon } from "@fortawesome/free-solid-svg-icons";
 
 function App() {
   const [display, setDisplay] = useState("0");
   const [waitingForOperand, setWaitingForOperand] = useState(false);
   const [operator, setOperator] = useState(null);
   const [value, setValue] = useState(null);
+  const [darkMode, setDarkMode] = useState(() => {
+    const saved = localStorage.getItem("darkMode");
+    const initialValue = JSON.parse(saved);
+    return initialValue || false;
+  });
+
+  useEffect(() => {
+    localStorage.setItem("darkMode", JSON.stringify(darkMode));
+  }, [darkMode]);
 
   const formatNumber = (num) => {
     const rounded = Math.round(num * 10000) / 10000;
@@ -92,8 +102,21 @@ function App() {
   };
 
   return (
-    <div className="flex justify-center items-center h-screen bg-gray-200">
-      <div className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 flex flex-col">
+    <div
+      className={`flex flex-col justify-center items-center min-h-screen transition-colors duration-300 ease-in-out ${
+        darkMode ? "bg-indigo-900" : "bg-gray-100"
+      }`}
+    >
+      <button
+        className={`${darkMode ? "text-orange-600" : "text-yellow-400"} p-5`}
+      >
+        <FontAwesomeIcon
+          icon={darkMode ? faSun : faMoon}
+          onClick={() => setDarkMode(!darkMode)}
+          size="2xl"
+        />
+      </button>
+      <div className="bg-white shadow-2xl rounded px-8 pt-6 pb-8 mb-4 flex flex-col">
         <div className="w-full flex justify-end mb-4">
           <output
             id="display"
