@@ -18,7 +18,7 @@ This is a simple calculator project built with React and Tailwind CSS.
 - React
 - Tailwind CSS
 
-## <strong>Important</strong
+## <strong>Important</strong>
     
 If 2 or more operators are entered consecutively, the operation performed should be the last operator entered (excluding the negative (-) sign).
     
