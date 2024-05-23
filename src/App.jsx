@@ -31,7 +31,7 @@ function App() {
 
     if (value == null) {
       setValue(inputValue);
-    } else if (operator) {
+    } else if (operator && !waitingForOperand) {
       const currentValue = value || 0;
       const newValue = performOperation[operator](currentValue, inputValue);
 
