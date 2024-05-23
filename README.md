@@ -18,9 +18,8 @@ This is a simple calculator project built with React and Tailwind CSS.
 - React
 - Tailwind CSS
 
-##
-    <summary><strong>Important</strong></summary>
+## <strong>Important</strong
     
-    If 2 or more operators are entered consecutively, the operation performed should be the last operator entered (excluding the negative (-) sign).
+If 2 or more operators are entered consecutively, the operation performed should be the last operator entered (excluding the negative (-) sign).
     
-    **Note:** The sequence "5 * - 5" should produce an output of "-25", but it currently produces '0'. There is a toggle sign button that can be used to calculate negative numbers correctly. Press the toggle sign button after entering a number you want to be negative to ensure accurate calculations.
+**Note:** The sequence "5 * - 5" should produce an output of "-25", but it currently produces '0'. There is a toggle sign button that can be used to calculate negative numbers correctly. Press the toggle sign button after entering a number you want to be negative to ensure accurate calculations.
