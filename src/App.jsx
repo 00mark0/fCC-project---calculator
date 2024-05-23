@@ -8,20 +8,35 @@ function App() {
   const [operator, setOperator] = useState(null);
   const [value, setValue] = useState(null);
 
+  const formatNumber = (num) => {
+    const rounded = Math.round(num * 10000) / 10000;
+    if (rounded % 1 === 0) {
+      return String(rounded);
+    } else {
+      const withFourDecimals = rounded.toFixed(4);
+      return parseFloat(withFourDecimals).toString();
+    }
+  };
+
   const inputNumber = (num) => {
     if (waitingForOperand) {
       setDisplay(num);
       setWaitingForOperand(false);
-    } else {
+    } else if (display.length < 12) {
       setDisplay(display === "0" ? num : display + num);
     }
+  };
+
+  const toggleSign = () => {
+    const currentValue = parseFloat(display);
+    setDisplay(String(currentValue * -1));
   };
 
   const inputDecimal = () => {
     if (waitingForOperand) {
       setDisplay(".");
       setWaitingForOperand(false);
-    } else if (display.indexOf(".") === -1) {
+    } else if (display.indexOf(".") === -1 && display.length < 12) {
       setDisplay(display + ".");
     }
   };
@@ -36,7 +51,7 @@ function App() {
       const newValue = performOperation[operator](currentValue, inputValue);
 
       setValue(newValue);
-      setDisplay(String(newValue));
+      setDisplay(formatNumber(newValue));
     }
 
     setWaitingForOperand(true);
@@ -56,7 +71,7 @@ function App() {
       result = performOperation[operator](value, parseFloat(display));
       setOperator(null);
     }
-    setDisplay(String(result));
+    setDisplay(formatNumber(result));
     setValue(null);
     setWaitingForOperand(true);
   };
@@ -87,13 +102,20 @@ function App() {
             {display}
           </output>
         </div>
-        <div className="mb-2">
+        <div className="mb-2 flex items-center gap-1">
           <button
             id="clear"
             className="w-full py-2 px-3 text-white bg-red-500 rounded hover:bg-red-700"
             onClick={clearDisplay}
           >
             AC
+          </button>
+          <button
+            id="toggleSign"
+            className="w-full py-2 px-3 text-white bg-orange-500 rounded hover:bg-red-700"
+            onClick={toggleSign}
+          >
+            +/-
           </button>
         </div>
         <div className="mb-2 grid grid-cols-4 gap-2">
